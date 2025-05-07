@@ -6,10 +6,20 @@ class CategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    const minGap = 12.0;
+    final categories = const ["All", "Design", "Programming", "UI/UX"];
+
+    // Estimate total text width (rough average)
+    const estimatedTextWidth = 80.0;
+    final totalNeededWidth =
+        (estimatedTextWidth * categories.length) +
+        (minGap * (categories.length - 1));
+
+    final useWrap = totalNeededWidth > screenWidth;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
       children: [
         const Text(
           "Course",
@@ -24,23 +34,35 @@ class CategorySection extends StatelessWidget {
           shaderCallback: (bounds) {
             return const LinearGradient(
               colors: [
-                Color.fromARGB(255, 247, 247, 247),
-                Color.fromARGB(255, 155, 135, 255),
+                Color.fromARGB(255, 86, 133, 220),
+                Color.fromARGB(255, 29, 17, 91),
               ],
             ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
           },
           blendMode: BlendMode.srcIn,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: const [
-                CategoryText(label: "All"),
-                CategoryText(label: "Design"),
-                CategoryText(label: "Programming"),
-                CategoryText(label: "UI/UX"),
-              ],
-            ),
-          ),
+          child:
+              useWrap
+                  ? SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children:
+                          categories
+                              .map(
+                                (label) => Padding(
+                                  padding: const EdgeInsets.only(right: minGap),
+                                  child: CategoryText(label: label),
+                                ),
+                              )
+                              .toList(),
+                    ),
+                  )
+                  : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
+                        categories
+                            .map((label) => CategoryText(label: label))
+                            .toList(),
+                  ),
         ),
         const SizedBox(height: 16),
       ],

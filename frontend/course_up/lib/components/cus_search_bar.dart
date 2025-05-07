@@ -6,13 +6,15 @@ class CusSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black,
+            // ignore: deprecated_member_use
+            color: Colors.black.withOpacity(0.5),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

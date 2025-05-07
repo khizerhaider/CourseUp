@@ -6,7 +6,9 @@ class HighlightedCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 16),
+      width: double.infinity,
+      height: 130,
+      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         image: const DecorationImage(
@@ -17,7 +19,8 @@ class HighlightedCourse extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black,
+            // ignore: deprecated_member_use
+            color: Colors.black.withOpacity(0.5),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -26,39 +29,23 @@ class HighlightedCourse extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "BEST COURSES AVAILABLE AT COURSE UP!",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 2, 57, 101),
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "BEST COURSES AVAILABLE AT COURSE UP!",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 2, 57, 101),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(height: 30),
-                Text(
-                  "User Experience Class",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 2, 57, 101),
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: const Color(0xFF6C63FF),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                  SizedBox(height: 30),
+                ],
               ),
             ),
-            child: const Text("See Class"),
           ),
         ],
       ),

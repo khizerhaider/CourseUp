@@ -13,14 +13,15 @@ class HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromARGB(255, 10, 6, 83),
-            Color.fromARGB(255, 55, 42, 116),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: Color(0xFFF0F4FD),
+        // gradient: LinearGradient(
+        //   colors: [
+        //     Color.fromARGB(255, 10, 6, 83),
+        //     Color.fromARGB(255, 55, 42, 116),
+        //   ],
+        //   begin: Alignment.topLeft,
+        //   end: Alignment.bottomRight,
+        // ),
       ),
       padding: const EdgeInsets.all(16.0),
       child: ListView(
@@ -29,7 +30,7 @@ class HomeBody extends StatelessWidget {
           CusSearchBar(),
           HighlightedCourse(),
           CategorySection(),
-          CourseGrid(),
+          CourseList(),
         ],
       ),
     );
