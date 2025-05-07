@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart'; // Import url_launcher
+import 'package:course_up/components/course_card.dart';
 
 class CourseGrid extends StatefulWidget {
   const CourseGrid({super.key});
@@ -90,53 +93,6 @@ class _CourseGridState extends State<CourseGrid> {
   }
 }
 
-class CourseCard extends StatelessWidget {
-  final String title;
-  final String thumbnailBase64;
-
-  const CourseCard({
-    super.key,
-    required this.title,
-    required this.thumbnailBase64,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final thumbnailBytes = base64Decode(thumbnailBase64);
-
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.purple.shade100,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(color: Colors.black12, offset: const Offset(0, 4)),
-        ],
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.memory(
-              thumbnailBytes,
-              height: 100,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 // Function to launch the video URL
 void launchVideoUrl(String url) async {
   if (await canLaunchUrl(url as Uri)) {
@@ -145,4 +101,8 @@ void launchVideoUrl(String url) async {
     throw 'Could not launch $url';
   }
 }
+
 // Function to decode base64 string to Uint8List
+Uint8List decodeBase64(String base64String) {
+  return base64.decode(base64String);
+}
