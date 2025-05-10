@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:course_up/components/home_screen.dart';
+import 'package:course_up/components/courseDetails/course_detail.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-// Main Application
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,7 +17,18 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        if (settings.name == '/courseDetail') {
+          final slug = settings.arguments as String; // <- receive argument here
+          return MaterialPageRoute(
+            builder: (context) => CourseDetailPage(slug: slug),
+          );
+        }
+
+        // Fallback/default to home
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
+      },
     );
   }
 }

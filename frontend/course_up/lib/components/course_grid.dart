@@ -42,6 +42,19 @@ class _CourseListState extends State<CourseList> {
     }
   }
 
+  // Function to slugify the course title
+  String slugify(String title) {
+    return title
+        .toLowerCase()
+        .replaceAll(
+          RegExp(r'[^a-z0-9\s-]'),
+          '',
+        ) // Remove non-alphanumeric characters
+        .replaceAll(RegExp(r'\s+'), '-') // Replace spaces with hyphens
+        .replaceAll(RegExp(r'-+'), '-') // Remove extra hyphens
+        .trim(); // Remove leading and trailing hyphens
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,18 +71,20 @@ class _CourseListState extends State<CourseList> {
             final courses = snapshot.data!;
             return ListView.separated(
               shrinkWrap: true,
-              physics:
-                  const NeverScrollableScrollPhysics(), // Delegate to parent scroll
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               itemCount: courses.length,
               itemBuilder: (context, index) {
                 final course = courses[index];
+                final sluggedTitle = slugify(
+                  course.title,
+                ); // Get the slugified title
                 return GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(
                       context,
-                      '/courseDetails',
-                      arguments: course.title,
+                      '/courseDetail', // Use the slug in the URL
+                      arguments: sluggedTitle, // Pass the original title
                     );
                   },
                   child: CourseCard(
