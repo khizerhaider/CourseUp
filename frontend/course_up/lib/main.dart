@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:course_up/components/home_screen.dart';
 import 'package:course_up/components/courseDetails/course_detail.dart';
+import 'package:course_up/components/courseDetails/course_videos_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,16 +19,18 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       initialRoute: '/',
-      onGenerateRoute: (settings) {
-        if (settings.name == '/courseDetail') {
-          final slug = settings.arguments as String; // <- receive argument here
-          return MaterialPageRoute(
-            builder: (context) => CourseDetailPage(slug: slug),
-          );
-        }
-
-        // Fallback/default to home
-        return MaterialPageRoute(builder: (context) => const HomeScreen());
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/courseDetail': (context) {
+          final slug = ModalRoute.of(context)!.settings.arguments as String;
+          return CourseDetailPage(slug: slug);
+        },
+        '/courseVideos': (context) {
+          final slug = ModalRoute.of(context)!.settings.arguments as String;
+          final courseTitle =
+              ModalRoute.of(context)!.settings.arguments as String;
+          return CourseVideosPage(slug: slug, courseTitle: courseTitle);
+        },
       },
     );
   }

@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:course_up/components/category_text.dart';
 
 class CategorySection extends StatelessWidget {
-  const CategorySection({super.key});
+  final Function(String) onCategorySelected;
+
+  const CategorySection({super.key, required this.onCategorySelected});
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     const minGap = 12.0;
-    final categories = const ["All", "Design", "Programming", "UI/UX"];
-
-    // Estimate total text width (rough average)
+    const categories = ["All", "Design", "Programming", "UI/UX"];
     const estimatedTextWidth = 80.0;
+
     final totalNeededWidth =
         (estimatedTextWidth * categories.length) +
         (minGap * (categories.length - 1));
-
     final useWrap = totalNeededWidth > screenWidth;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: const Text(
-            "Course",
+        const Padding(
+          padding: EdgeInsets.only(left: 16.0),
+          child: Text(
+            "Courses",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -47,24 +47,35 @@ class CategorySection extends StatelessWidget {
               useWrap
                   ? SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Row(
                       children:
-                          categories
-                              .map(
-                                (label) => Padding(
-                                  padding: const EdgeInsets.only(right: minGap),
-                                  child: CategoryText(label: label),
+                          categories.map((label) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: minGap),
+                              child: GestureDetector(
+                                onTap: () => onCategorySelected(label),
+                                child: CategoryText(
+                                  label: label,
+                                  isSelected: false,
                                 ),
-                              )
-                              .toList(),
+                              ),
+                            );
+                          }).toList(),
                     ),
                   )
                   : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children:
-                        categories
-                            .map((label) => CategoryText(label: label))
-                            .toList(),
+                        categories.map((label) {
+                          return GestureDetector(
+                            onTap: () => onCategorySelected(label),
+                            child: CategoryText(
+                              label: label,
+                              isSelected: false,
+                            ),
+                          );
+                        }).toList(),
                   ),
         ),
         const SizedBox(height: 16),

@@ -24,7 +24,7 @@ const slugify = (text) =>
 const encodeImageToBase64 = (filePath) => {
   try {
     const absolutePath = path.resolve(filePath);
-    console.log('Absolute path:');
+    //console.log('Absolute path:');
     //const imageBuffer = fs.readFileSync(absolutePath);
     const mimeType = mime.getType(absolutePath); // e.g., 'image/png'
 
@@ -40,20 +40,20 @@ router.get('/', async (req, res) => {
     const courses = await Course.find().populate('category').lean();
     const courseIds = courses.map(c => c._id);
     const videos = await Video.find({ course: { $in: courseIds } }).lean();
-
+    //const categories = await Category.find().lean();
+    console.log('category:', courses[0].category);
     const result = courses.map(course => {
-      const courseVideos = videos.filter(v => v.course.toString() === course._id.toString());
+      //const courseVideos = videos.filter(v => v.course.toString() === course._id.toString());
+
       return {
         _id: course._id,
         title: course.title,
         description: course.description,
-        category: course.category?.name || 'Uncategorized',
+        //category: course.category?.name || 'Uncategorized',
+
         slug: slugify(course.title),
         thumbnail: course.thumbnail,
-        videos: courseVideos.map(v => ({
-          title: v.title,
-          videoUrl: v.videoUrl,
-        })),
+        
       };
     });
 
@@ -88,7 +88,21 @@ router.get('/:slug', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch course details' });
   }
 });
-
+router.get('/categories', async (req, res) => {
+  // Get all categories
+  try {
+    const categories = await Category.find().lean();
+    const simplified = categories.map(c => ({
+      _id: c._id,
+      name: c.name,
+      //description: c.description,
+    }));
+    res.status(200).json(simplified);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch categories' });
+  }
+});
 // Route: Get videos for a course by slug
 router.get('/:slug/videos', async (req, res) => {
   try {

@@ -24,36 +24,55 @@ class CourseCard extends StatelessWidget {
     }
 
     return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-            child:
-                imageBytes != null
-                    ? Image.memory(
-                      imageBytes,
-                      height: 100,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    )
-                    : const Placeholder(
-                      fallbackHeight: 100,
-                      fallbackWidth: double.infinity,
-                    ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+      elevation: 4,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shadowColor: Colors.black12,
+      color: Theme.of(context).cardColor,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
+              child:
+                  imageBytes != null
+                      ? Image.memory(
+                        imageBytes,
+                        height: 140,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      )
+                      : Container(
+                        height: 140,
+                        color: Colors.grey[200],
+                        child: const Center(
+                          child: Icon(
+                            Icons.image_not_supported,
+                            size: 40,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+              child: Text(
+                title,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

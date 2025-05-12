@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:course_up/components/header.dart';
@@ -25,12 +26,19 @@ class HomeBody extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(16.0),
       child: ListView(
-        children: const [
-          HeaderSection(),
-          CusSearchBar(),
-          HighlightedCourse(),
-          CategorySection(),
-          CourseList(),
+        children: [
+          //HeaderSection(),
+          const CusSearchBar(),
+          const HighlightedCourse(),
+          CategorySection(
+            onCategorySelected: (String selected) {
+              if (kDebugMode) {
+                print("User selected: $selected");
+              }
+              // You can setState here if you're managing selection
+            },
+          ),
+          const CourseList(),
         ],
       ),
     );
