@@ -1,4 +1,4 @@
-# 📚 CourseUp - Online Learning Platform
+![Mockups](https://github.com/user-attachments/assets/fbe9f39b-4471-4fd0-a9c0-fdecbb6c6f95)# 📚 CourseUp - Online Learning Platform
 
 A **full-stack online learning platform** built with Flutter (frontend) and Node.js (backend). It enables users to browse, stream, and learn from a variety of courses in an intuitive mobile interface.
 
@@ -8,7 +8,8 @@ A **full-stack online learning platform** built with Flutter (frontend) and Node
 
 https://userdomain.com/path/to/demo-video.mp4 <!-- Replace with actual video URL or GitHub video file link -->
 
-![CourseUp Screenshot](https://userdomain.com/path/to/screenshot.png) <!-- Replace with actual image URL -->
+![Mockups](https://github.com/user-attachments/assets/946938d4-993e-4f23-adf4-7bf213887c9e)
+!-- Replace with actual image URL -->
 
 ---
 
