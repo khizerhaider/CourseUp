@@ -6,7 +6,11 @@ A **full-stack online learning platform** built with Flutter (frontend) and Node
 
 ## 📽️ Demo
 
-https://userdomain.com/path/to/demo-video.mp4 <!-- Replace with actual video URL or GitHub video file link -->
+https://userdomain
+
+https://github.com/user-attachments/assets/fd30032d-f922-4024-ae75-a844e35f9b0a
+
+.com/path/to/demo-video.mp4 <!-- Replace with actual video URL or GitHub video file link -->
 
 ![Mockups](https://github.com/user-attachments/assets/946938d4-993e-4f23-adf4-7bf213887c9e)
 !-- Replace with actual image URL -->
